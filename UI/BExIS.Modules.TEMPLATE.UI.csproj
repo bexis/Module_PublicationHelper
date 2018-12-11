@@ -231,6 +231,14 @@
       <Project>{c8a05313-b960-406e-92ec-c1e5b3f47fcd}</Project>
       <Name>BExIS.IO.Transform.Validation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BEXIS.TEMPLATE.Entities\BEXIS.TEMPLATE.Entities.csproj">
+      <Project>{9472d367-8fb1-4009-b648-104b3d015ce9}</Project>
+      <Name>BEXIS.TEMPLATE.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BEXIS.TEMPLATE.Services\BEXIS.TEMPLATE.Services.csproj">
+      <Project>{b423a986-eb03-4696-aade-a5e8ea11fc73}</Project>
+      <Name>BEXIS.TEMPLATE.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
