@@ -203,7 +203,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>

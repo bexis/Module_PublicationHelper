@@ -48,13 +48,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExampleManager.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BEXIS.TEMPLATE.Entities\BEXIS.TEMPLATE.Entities.csproj">
       <Project>{9472D367-8FB1-4009-B648-104B3D015CE9}</Project>
       <Name>BEXIS.TEMPLATE.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

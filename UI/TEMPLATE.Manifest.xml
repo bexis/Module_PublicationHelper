@@ -4,7 +4,8 @@
     ...
   </Description>
 	<Assemblies>
-		<Assembly fullName="" role=""/>
+    <Assembly fullName="BEXIS.TEMPLATE.Entities" role=""/>
+    <Assembly fullName="BEXIS.TEMPLATE.Services" role=""/>
 	</Assemblies>
 	<Dependencies>
 		<!--<Dependency moduleId="dcm" version="*.*.*" />-->

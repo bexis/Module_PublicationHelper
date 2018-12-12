@@ -41,10 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Mappings\Default\Example.hbm.xml">
+    <Content Include="Mappings\Default\Data\Example.hbm.xml">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
@@ -52,6 +49,9 @@
     <Folder Include="Mappings\DB2Dialect\" />
     <Folder Include="Mappings\MsSql2008Dialect\" />
     <Folder Include="Mappings\PostgresSQL82Dialect\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

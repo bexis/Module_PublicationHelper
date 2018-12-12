@@ -1,4 +1,4 @@
-﻿using BExIS.TEMPLATE.Entities;
+﻿using BEXIS.TEMPLATE.Entities.Data;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -39,7 +39,7 @@ namespace BExIS.TEMPLATE.Services
             }
         }
 
-        #region LINK ELEMENT
+        #region Example
 
         public IEnumerable<Example> Get()
         {
