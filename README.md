@@ -36,7 +36,7 @@ The template consists of 1 project and 3 libaries
 <Modules>
   ...
   <Module id="vim" status="active" order="8" />
-  <Module id="MODULEID" status="pending" order="1" ui="UI"/>
+  <Module id="MODULEID" status="pending" order="1" path="UI"/>
 </Modules>
 ```
 10. Run application
