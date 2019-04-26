@@ -19,7 +19,7 @@ The template consists of 1 project and 3 libaries
 
 1. Download latest version
 2. Create a folder into ***BEXIS2APP\Console\BExIS.Web.Shell\Areas*** and name it like your prefered ***MODULEID*** (only Characters) and copy the downloaded template into this folder
-    - ..\Console\BExIS.Web.Shell\Areas\\***MODULEID***\UI
+    - ..\Console\BExIS.Web.Shell\Areas\\***MODULEID***\BEXIS.Modules.TEMPLATE.UI
     - ..\Console\BExIS.Web.Shell\Areas\\***MODULEID***\BEXIS.TEMPLATE.Entities
     - ..\Console\BExIS.Web.Shell\Areas\\***MODULEID***\BEXIS.TEMPLATE.Orm.NH
     - ..\Console\BExIS.Web.Shell\Areas\\***MODULEID***\BEXIS.TEMPLATE.Services
@@ -36,7 +36,7 @@ The template consists of 1 project and 3 libaries
 <Modules>
   ...
   <Module id="vim" status="active" order="8" />
-  <Module id="MODULEID" status="pending" order="1" path="UI"/>
+  <Module id="MODULEID" status="pending" order="1" path="BEXIS.Modules.MODULEID.UI"/>
 </Modules>
 ```
 10. Run application
