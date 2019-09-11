@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B423A986-EB03-4696-AADE-A5E8EA11FC73}</ProjectGuid>
+    <ProjectGuid>{23053A56-CB33-4DFD-917E-B488F38A6C25}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BEXIS.PUB.Services</RootNamespace>
@@ -48,12 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExampleManager.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BEXIS.PUB.Entities\BEXIS.PUB.Entities.csproj">
-      <Project>{9472D367-8FB1-4009-B648-104B3D015CE9}</Project>
-      <Name>BEXIS.PUB.Entities</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

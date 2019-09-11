@@ -19,10 +19,10 @@
 						extends="./settingsRoot"
 						/>-->
 	<!-- Menubar Example-->
-		<!--<Export tag="menubar" id="createDataset" order="1"
-						title="Create Dataset" description="Create new Dataset" icon=""
-						controller="CreateDataset" action="index"
-						extends="./menubarRoot/collect" />-->
+		<Export tag="menubar" id="createPublivation" order="1"
+						title="Create Publivation" description="Create new Publication" icon=""
+						controller="CreatePublication" action="index"
+						extends="./menubarRoot/collect" />
 			
 		<!-- Api Example-->
 		<!-- <Export tag="api" id="tntList"
