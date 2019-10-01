@@ -19,9 +19,14 @@
 						extends="./settingsRoot"
 						/>-->
 	<!-- Menubar Example-->
-		<Export tag="menubar" id="createPublivation" order="1"
-						title="Create Publivation" description="Create new Publication" icon=""
+		<Export tag="menubar" id="createPublication" order="1"
+						title="Create Publication" description="Create new Publication" icon=""
 						controller="CreatePublication" action="index"
+						extends="./menubarRoot/collect" />
+
+    <Export tag="menubar" id="uploadPublication" order="1"
+						title="Upload Publication" description="Upload files to Publication" icon=""
+						controller="UploadPublication" action="index"
 						extends="./menubarRoot/collect" />
 			
 		<!-- Api Example-->
