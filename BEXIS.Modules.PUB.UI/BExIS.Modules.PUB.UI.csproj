@@ -146,7 +146,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Libraries\Vaiona\Vaiona.Web.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Vaiona.Web.Mvc.Modularity">
+    <Reference Include="Vaiona.Web.Mvc.Modularity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Libraries\Vaiona\Vaiona.Web.Mvc.Modularity.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -155,6 +156,7 @@
     <Compile Include="Controllers\UploadPublicationController.cs" />
     <Compile Include="Helper\PublicationStore.cs" />
     <Compile Include="Helper\PUBSeedDataGenerator.cs" />
+    <Compile Include="Models\SelectFileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PUBModule.cs" />
   </ItemGroup>
@@ -178,6 +180,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -196,7 +199,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="web.config" />
     <Content Include="Views\CreatePublication\Index.cshtml" />
-    <Content Include="Views\UploadPublication\Index.cshtml" />
+    <Content Include="Views\UploadPublication\UploadFile.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -205,7 +208,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
@@ -229,9 +231,21 @@
       <Project>{c4ca0a99-0af3-4372-a9b7-b9073599bd8b}</Project>
       <Name>BExIS.Dlm.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Components\IO\BExIS.IO.Transform.Output\BExIS.IO.Transform.Output.csproj">
+      <Project>{455EC826-9A92-40FF-BD3B-388C288955CE}</Project>
+      <Name>BExIS.IO.Transform.Output</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Components\IO\BExIS.IO.Transform.Validation\BExIS.IO.Transform.Validation.csproj">
       <Project>{c8a05313-b960-406e-92ec-c1e5b3f47fcd}</Project>
       <Name>BExIS.IO.Transform.Validation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Components\IO\BExIS.IO\BExIS.IO.csproj">
+      <Project>{E4795F06-20C2-4C4C-A720-9A79896384DF}</Project>
+      <Name>BExIS.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Components\Utils\BExIS.Utils.Data\BExIS.Utils.Data.csproj">
+      <Project>{A7FBCC13-7E29-4710-82A1-BD6D6F811FDA}</Project>
+      <Name>BExIS.Utils.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Components\XML\BExIS.Xml.Helpers\BExIS.Xml.Helpers.csproj">
       <Project>{252f7872-a69c-43a6-84b4-4d2abdbdd9ab}</Project>
@@ -248,6 +262,10 @@
     <ProjectReference Include="..\..\..\..\..\Modules\DCM\BExIS.Dcm.Wizard\BExIS.Dcm.Wizard.csproj">
       <Project>{d17cdd9d-b87b-441b-9248-5c54e92ffc81}</Project>
       <Name>BExIS.Dcm.Wizard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DCM\BExIS.Modules.Dcm.UI.csproj">
+      <Project>{44DD2A5E-0D2F-4FAB-B297-4211441030B7}</Project>
+      <Name>BExIS.Modules.Dcm.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

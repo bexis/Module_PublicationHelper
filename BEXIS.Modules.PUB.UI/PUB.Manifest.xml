@@ -24,11 +24,6 @@
 						controller="CreatePublication" action="index"
 						extends="./menubarRoot/collect" />
 
-    <Export tag="menubar" id="uploadPublication" order="1"
-						title="Upload Publication" description="Upload files to Publication" icon=""
-						controller="UploadPublication" action="index"
-						extends="./menubarRoot/collect" />
-			
 		<!-- Api Example-->
 		<!-- <Export tag="api" id="tntList"
 						title="No thing" description="Change me!" icon=""

@@ -1,17 +1,29 @@
 ﻿using BExIS.Dcm.CreateDatasetWizard;
+using BExIS.Dcm.UploadWizard;
 using BExIS.Dcm.Wizard;
 using BExIS.Dlm.Entities.Administration;
+using BExIS.Dlm.Entities.Data;
 using BExIS.Dlm.Entities.DataStructure;
+using BExIS.Dlm.Entities.MetadataStructure;
 using BExIS.Dlm.Services.Administration;
+using BExIS.Dlm.Services.Data;
 using BExIS.Dlm.Services.DataStructure;
 using BExIS.Dlm.Services.MetadataStructure;
+using BExIS.Modules.Dcm.UI.Controllers;
+using BExIS.Security.Services.Authorization;
 using BExIS.Security.Services.Objects;
+using BExIS.Security.Services.Utilities;
+using BExIS.Xml.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Xml;
+using System.Xml.Linq;
+using Vaiona.Logging;
 using Vaiona.Web.Mvc;
 using Vaiona.Web.Mvc.Modularity;
 
@@ -19,6 +31,8 @@ namespace BExIS.Modules.PUB.UI.Controllers
 {
     public class CreatePublicationController : BaseController
     {
+        private XmlDatasetHelper xmlDatasetHelper = new XmlDatasetHelper();
+
         // GET: CreatePublication
         public ActionResult Index()
         {
@@ -50,7 +64,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
                     DataStructure dataStructure = CreateDataStructure("Publication-File") as UnStructuredDataStructure;
                     taskManager.AddToBus(CreateTaskmanager.DATASTRUCTURE_ID, dataStructure.Id);
 
-                    Session["CreateDatasetTaskmanager"] = taskManager;
+                    HttpContext.Session["CreateDatasetTaskmanager"] = taskManager;
                     setAdditionalFunctions();
 
                     var view = this.Render("DCM", "Form", "StartMetadataEditor", new RouteValueDictionary()
@@ -65,6 +79,18 @@ namespace BExIS.Modules.PUB.UI.Controllers
                 }
             }
         
+        }
+
+        public ActionResult Submit(bool valid)
+        {
+            // create and submit Dataset
+            var createDatasetController = new CreateDatasetController();
+            // how to hold the seesion: https://stackoverflow.com/questions/31388357/session-is-null-when-calling-method-from-one-controller-to-another-mvc
+            createDatasetController.ControllerContext = new ControllerContext(this.Request.RequestContext, createDatasetController);
+            long datasetId = createDatasetController.SubmitDataset(valid);
+
+            return RedirectToAction("Index", "UploadPublication", new { area = "Pub", entityId = datasetId});
+           
         }
 
         private void setAdditionalFunctions()
@@ -89,8 +115,8 @@ namespace BExIS.Modules.PUB.UI.Controllers
 
             ActionInfo submitAction = new ActionInfo();
             submitAction.ActionName = "Submit";
-            submitAction.ControllerName = "CreateDataset";
-            submitAction.AreaName = "DCM";
+            submitAction.ControllerName = "CreatePublication";
+            submitAction.AreaName = "PUB";
 
 
 
@@ -98,7 +124,6 @@ namespace BExIS.Modules.PUB.UI.Controllers
             //taskManager.Actions.Add(CreateTaskmanager.COPY_ACTION, copyAction);
             //taskManager.Actions.Add(CreateTaskmanager.RESET_ACTION, resetAction);
             taskManager.Actions.Add(CreateTaskmanager.SUBMIT_ACTION, submitAction);
-
         }
 
        
@@ -126,5 +151,6 @@ namespace BExIS.Modules.PUB.UI.Controllers
                 }
             }
         }
+
     }
 }

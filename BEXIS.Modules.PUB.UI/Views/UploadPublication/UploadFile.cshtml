@@ -1,0 +1,149 @@
+﻿@model BExIS.Modules.PUB.UI.Models.SelectFileViewModel
+@using Telerik.Web.Mvc.UI;
+@using System.Web.Configuration;
+
+@{
+
+    HttpRuntimeSection section = System.Configuration.ConfigurationManager.GetSection("system.web/httpRuntime") as HttpRuntimeSection;
+    int int_MaxRequestLength = section.MaxRequestLength;
+    int mbMax = int_MaxRequestLength / 1024;
+
+    string fileExtListAsString = "";
+
+    foreach (string s in Model.SupportedFileExtentions)
+    {
+        if (fileExtListAsString != "")
+        {
+            fileExtListAsString += "," + s;
+        }
+        else
+        {
+            fileExtListAsString = s;
+        }
+    }
+}
+
+<div class="">
+    <p>Please select a  file to be uploaded to the publication.</p>
+    <p>
+        Supported file formats: @{foreach (string s in @Model.SupportedFileExtentions)
+            {<b>(*@s) </b>} }
+    </p>
+    <p>Maximum file size: @mbMax MB</p>
+</div>
+
+<div class="uploadWizardStep_Content stepper">
+
+    <table>
+        <tr>
+
+            <td>
+                @(Html.Telerik().Upload()
+                                                                                        .Name("SelectFileUploader")
+                                                                                        .Multiple(false)
+                                                                                        .ShowFileList(false)
+                                                                                        .HtmlAttributes(new { title = "Browse" })
+                                                                                        .ClientEvents(events =>
+                                                                                            events.OnSelect("SelectFileProcess_OnSelect")
+                                                                                                    .OnRemove("SelectFileProcess_OnRemove")
+                                                                                                    .OnSuccess("SelectFileProcess_OnSuccess")
+
+                                                                                        )
+                                                                                         .Async(async => async
+                                            .Save("SelectFileProcess", "UploadPublication", new { area = "PUB" })
+                                            .AutoUpload(true))
+
+
+
+                )
+            </td>
+            <td>
+                Select a data file from your local computer.
+            </td>
+
+        </tr>
+
+    </table>
+</div>
+<div class="uploadWizardStep_Success stepper">
+    <div id="fileNameDiv">
+        @if (Model.SelectedFileName != "")
+        {
+            @Model.SelectedFileName
+        }
+</div>
+</div>
+
+<div>
+    @Html.ActionLink("Upload", "SaveFile", "UploadPublication", new { entityId = Model.EntityId }, new { @class = "bx-button action", @style = "float:right" })
+    @Html.ActionLink("Skip Upload", "SkipUpload", "UploadPublication", new { entityId = Model.EntityId }, new { @class = "bx-button action", @style = "float:right" })
+</div>
+
+
+<script type="text/javascript">
+
+    function SelectFileProcess_OnSelect(e) {
+
+            unStructuredDataSet(e)
+
+    }
+
+     function unStructuredDataSet(e) {
+
+        var file = e.files[0];
+        var maxsize = '@int_MaxRequestLength';
+
+        //alert("is Ext " + IsExtentionValid(file.extension));
+        if (!IsExtentionValid(file.extension)) {
+
+            alert("Only " + '@fileExtListAsString' + " files can be uploaded");
+            e.preventDefault();
+            return false;
+        }
+        else {
+
+            if (file.size > (maxsize * 1024)) {
+
+                alert("Max file : " + maxsize / 1024 + " MB is supported. Please contact your administrator to upload bigger files.");
+                e.preventDefault();
+                return false;
+            }
+
+            //Parameters.push("Extention:" + file.extension);
+        }
+    }
+
+     /*
+    Is Extention from selected file
+    in list of supported files
+    */
+    function IsExtentionValid(fileExtention)
+    {
+        var extListAsString = '@fileExtListAsString';
+        var extList = extListAsString.split(',');
+
+        for (var i = 0; i < extList.length; i++)
+        {
+            if (fileExtention.toLowerCase() == extList[i]) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+      function SelectFileProcess_OnRemove(e) {
+        //$('#fileNameDiv').text("");
+    }
+
+    function SelectFileProcess_OnSuccess(e) {
+
+        $('.uploadWizardStep_Error').empty();
+        $('#fileNameDiv').text(e.files[0].name);
+    }
+
+
+
+
+
+</script>

@@ -6,3 +6,11 @@ C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Entities\obj\D
 C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Entities\obj\Debug\BEXIS.PUB.Entities.csproj.CopyComplete
 C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Entities\obj\Debug\BEXIS.PUB.Entities.dll
 C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Entities\obj\Debug\BEXIS.PUB.Entities.pdb
+C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Entities\bin\Debug\BEXIS.PUB.Entities.dll
+C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Entities\bin\Debug\BEXIS.PUB.Entities.pdb
+C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Entities\bin\Debug\Vaiona.Entities.dll
+C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Entities\bin\Debug\Vaiona.Core.dll
+C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Entities\obj\Debug\BEXIS.PUB.Entities.csproj.CoreCompileInputs.cache
+C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Entities\obj\Debug\BEXIS.PUB.Entities.csproj.CopyComplete
+C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Entities\obj\Debug\BEXIS.PUB.Entities.dll
+C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Entities\obj\Debug\BEXIS.PUB.Entities.pdb

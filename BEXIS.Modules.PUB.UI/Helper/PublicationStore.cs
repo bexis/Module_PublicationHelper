@@ -53,5 +53,25 @@ namespace BExIS.Modules.PUB.UI.Helpers
                 }
             }
         }
+
+        public int GetVersionById(long id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public List<EntityStoreItem> GetVersionsById(long id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool HasVersions()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int CountVersions(long id)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

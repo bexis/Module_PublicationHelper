@@ -32,6 +32,23 @@ namespace BExIS.Modules.PUB.UI.Helpers
 
 
             #endregion
+
+            #region SECURITY
+
+            FeatureManager featureManager = new FeatureManager();
+            OperationManager operationManager = new OperationManager();
+
+            Feature DataCollectionFeature = featureManager.FeatureRepository.Get().FirstOrDefault(f => f.Name.Equals("Data Collection"));
+            if (DataCollectionFeature == null) DataCollectionFeature = featureManager.Create("Data Collection", "Data Collection");
+
+            Feature PublicationCreationFeature = featureManager.FeatureRepository.Get().FirstOrDefault(f => f.Name.Equals("Publication Creation"));
+            if (PublicationCreationFeature == null) PublicationCreationFeature = featureManager.Create("Publication Creation", "Publication Creation", DataCollectionFeature);
+
+            operationManager.Create("PUB", "CreatePublication", "*", PublicationCreationFeature);
+            operationManager.Create("PUB", "UploadPublication", "*", PublicationCreationFeature);
+
+
+            #endregion
         }
 
         public void Dispose()
