@@ -19,7 +19,6 @@ C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Services\b
 C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Services\bin\Debug\Vaiona.Core.dll
 C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Services\bin\Debug\Vaiona.Utils.dll
 C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Services\bin\Debug\Vaiona.IoC.dll
-C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Services\obj\Debug\BEXIS.PUB.Services.csprojAssemblyReference.cache
 C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Services\obj\Debug\BEXIS.PUB.Services.csproj.CoreCompileInputs.cache
 C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Services\obj\Debug\BEXIS.PUB.Services.csproj.CopyComplete
 C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Services\obj\Debug\BEXIS.PUB.Services.dll

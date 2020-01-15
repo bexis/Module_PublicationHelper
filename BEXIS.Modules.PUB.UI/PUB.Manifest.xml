@@ -31,4 +31,9 @@
 						extends="./apiRoot"
 						/>-->
 	</Exports>
+
+  <EntityActions>
+    <EntityAction id="showPublication" entity="publication" controller="ShowPublication" action="Index" area="PUB" modus="show" />
+  </EntityActions>
+  
 </Manifest>
