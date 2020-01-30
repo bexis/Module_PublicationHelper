@@ -28,6 +28,8 @@ namespace BExIS.Modules.PUB.UI.Helpers
                     entity.UseMetadata = true;
                     entity.Securable = true;
 
+                    //add to Extra
+
                     XmlDocument xmlDoc = new XmlDocument();
                     XmlDatasetHelper xmlDatasetHelper = new XmlDatasetHelper();
                     xmlDatasetHelper.AddReferenceToXml(xmlDoc, AttributeNames.name.ToString(), "pub", AttributeType.parameter.ToString(), "extra/modules/module");
@@ -46,17 +48,14 @@ namespace BExIS.Modules.PUB.UI.Helpers
             FeatureManager featureManager = new FeatureManager();
             OperationManager operationManager = new OperationManager();
 
-            Feature DataCollectionFeature = featureManager.FeatureRepository.Get().FirstOrDefault(f => f.Name.Equals("Data Collection"));
-            if (DataCollectionFeature == null) DataCollectionFeature = featureManager.Create("Data Collection", "Data Collection");
+            Feature PublicationFeature = featureManager.FeatureRepository.Get().FirstOrDefault(f => f.Name.Equals("Publications"));
+            if (PublicationFeature == null) PublicationFeature = featureManager.Create("Publications", "Publications");
 
-            Feature DataDiscovery = featureManager.FeatureRepository.Get().FirstOrDefault(f => f.Name.Equals("Data Discovery"));
-            if (DataDiscovery == null) DataDiscovery = featureManager.Create("Data Discovery", "Data Discovery");
+            Feature PublicationCreationFeature = featureManager.FeatureRepository.Get().FirstOrDefault(f => f.Name.Equals("Publication Creation"));
+            if (PublicationCreationFeature == null) PublicationCreationFeature = featureManager.Create("Publication Creation", "Publication Creation", PublicationFeature);
 
-            Feature PublicationCreationFeature = featureManager.FeatureRepository.Get().FirstOrDefault(f => f.Name.Equals("Publications Creation"));
-            if (PublicationCreationFeature == null) PublicationCreationFeature = featureManager.Create("Publications Creation", "Publications Creation", DataCollectionFeature);
-
-            Feature PublicationShowFeature = featureManager.FeatureRepository.Get().FirstOrDefault(f => f.Name.Equals("Publications Show"));
-            if (PublicationShowFeature == null) PublicationShowFeature = featureManager.Create("Publications Show", "Publications Show", DataDiscovery);
+            Feature PublicationShowFeature = featureManager.FeatureRepository.Get().FirstOrDefault(f => f.Name.Equals("Publication Show"));
+            if (PublicationShowFeature == null) PublicationShowFeature = featureManager.Create("Publication Show", "Publication Show", PublicationFeature);
 
             operationManager.Create("PUB", "CreatePublication", "*", PublicationCreationFeature);
             operationManager.Create("PUB", "UploadPublication", "*", PublicationCreationFeature);

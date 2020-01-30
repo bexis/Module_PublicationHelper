@@ -54,24 +54,66 @@ namespace BExIS.Modules.PUB.UI.Helpers
             }
         }
 
-        public int GetVersionById(long id)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public List<EntityStoreItem> GetVersionsById(long id)
         {
-            throw new System.NotImplementedException();
+            DatasetManager dm = new DatasetManager();
+            List<EntityStoreItem> tmp = new List<EntityStoreItem>();
+            try
+            {
+                var datasetIds = dm.GetDatasetLatestIds();
+                var datasetHelper = new XmlDatasetHelper();
+                var versions = dm.GetDataset(id).Versions.OrderBy(v => v.Timestamp).ToList();
+
+                foreach (var v in versions)
+                {
+                    tmp.Add(new EntityStoreItem()
+                    {
+                        Id = v.Id,
+                        Title = datasetHelper.GetInformationFromVersion(v.Id, NameAttributeValues.title),
+                        Version = versions.IndexOf(v) + 1,
+                        CommitComment = "(" + v.Timestamp.ToString("dd.MM.yyyy HH:mm") + "): " + v.ChangeDescription
+                    });
+                }
+
+                return tmp;
+            }
+            catch (Exception ex)
+            {
+                return tmp;
+            }
+            finally
+            {
+                dm.Dispose();
+            }
         }
 
+        
         public bool HasVersions()
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         public int CountVersions(long id)
         {
-            throw new System.NotImplementedException();
+            DatasetManager dm = new DatasetManager();
+
+            try
+            {
+                var datasetIds = dm.GetDatasetLatestIds();
+                var datasetHelper = new XmlDatasetHelper();
+
+                int version = dm.GetDataset(id).Versions.Count;
+
+                return version;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+            finally
+            {
+                dm.Dispose();
+            }
         }
     }
 }
