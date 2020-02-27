@@ -19,7 +19,7 @@
 						extends="./settingsRoot"
 						/>-->
 	<!-- Menubar Example-->
-		<Export tag="menubar" id="createPublication" order="1"
+		<Export tag="menubar" id="createPublication" order="2"
 						title="Create Publication" description="Create new Publication" icon=""
 						controller="CreatePublication" action="index"
 						extends="./menubarRoot/collect" />
