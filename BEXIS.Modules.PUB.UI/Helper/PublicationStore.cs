@@ -12,21 +12,75 @@ namespace BExIS.Modules.PUB.UI.Helpers
 {
     public class PublicationStore : IEntityStore
     {
+
+        private const string _entityName = "Publication";
+
         public List<EntityStoreItem> GetEntities()
         {
             using (var uow = this.GetUnitOfWork())
             {
                 DatasetManager dm = new DatasetManager();
                 MetadataStructureManager metadataStructureManager = new MetadataStructureManager();
-                var md = metadataStructureManager.Repo.Get(a => a.Name == "BE-PublicationSchema").FirstOrDefault();
+                XmlDatasetHelper xmlDatasetHelper = new XmlDatasetHelper();
+                var entities = new List<EntityStoreItem>();
 
                 try
                 {
-                    var datasetIds = dm.DatasetRepo.Get(a => a.MetadataStructure.Id == md.Id).Select(a=>a.Id);
-                    var datasetHelper = new XmlDatasetHelper();
+                    List<long> metadataStructureIds = metadataStructureManager.Repo.Query().Select(m => m.Id).ToList();
 
-                    var entities = datasetIds.Select(id => new EntityStoreItem() { Id = id, Title = datasetHelper.GetInformation(id, NameAttributeValues.title) });
+                    List<long> metadataSturctureIdsForDatasets = new List<long>();
+                    metadataSturctureIdsForDatasets = metadataStructureIds.Where(m => xmlDatasetHelper.HasEntity(m, _entityName)).ToList();
+
+                    foreach (var msid in metadataSturctureIdsForDatasets)
+                    {
+                        // get all datasets based on metadata data structure id
+                        var datasetIds = dm.DatasetRepo.Query(d => d.MetadataStructure.Id.Equals(msid)).Select(d => d.Id).ToList();
+
+                        if (!datasetIds.Any()) continue;
+
+                        List<Tuple<long, long, string>> x = new List<Tuple<long, long, string>>();
+
+                        // create tuples based on dataset id list, and get latest version of each dataset
+
+                        foreach (var datasetId in datasetIds)
+                        {
+                            if (dm.IsDatasetCheckedIn(datasetId))
+                            {
+                                x.Add(new Tuple<long, long, string>(
+                                    datasetId,
+                                    dm.GetDatasetLatestVersionId(datasetId),
+                                    string.Empty));
+                            }
+                        }
+
+                        //select versionids for the next query
+                        var verionIds = x.Select(t => t.Item2).ToList();
+
+                        var r = xmlDatasetHelper.GetInformationFromVersions(verionIds, msid, NameAttributeValues.title);
+
+                        if (r != null)
+                        {
+                            foreach (KeyValuePair<long, string> kvp in r)
+                            {
+                                long id = x.Where(t => t.Item2.Equals(kvp.Key)).FirstOrDefault().Item1;
+
+                                var e = new EntityStoreItem()
+                                {
+                                    Id = id,
+                                    Title = kvp.Value,
+                                    Version = dm.GetDatasetVersionCount(id)
+                                };
+
+                                entities.Add(e);
+                            }
+                        }
+                    }
+
                     return entities.ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
                 }
                 finally
                 {
@@ -34,6 +88,7 @@ namespace BExIS.Modules.PUB.UI.Helpers
                 }
             }
         }
+
 
         public string GetTitleById(long id)
         {
