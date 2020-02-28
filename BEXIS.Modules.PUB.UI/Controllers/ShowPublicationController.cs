@@ -292,6 +292,9 @@ namespace BExIS.Modules.PUB.UI.Controllers
                     bool downloadAccess = entityPermissionManager.HasEffectiveRight(HttpContext.User.Identity.Name,
                         "Publication", typeof(Dataset), datasetID, RightType.Read);
 
+                    bool editRights = entityPermissionManager.HasEffectiveRight(HttpContext.User.Identity.Name,
+                        "Publication", typeof(Dataset), datasetID, RightType.Write);
+
                     //TITLE
                     string title = xmlDatasetHelper.GetInformationFromVersion(dsv.Id, NameAttributeValues.title);
 
@@ -308,7 +311,8 @@ namespace BExIS.Modules.PUB.UI.Controllers
                                 SearchUIHelper.GetContantDescriptorFromKey(dsv, "unstructuredData"),
                                 downloadAccess,
                                 iOUtility.GetSupportedAsciiFiles(),
-                                latestVersion));
+                                latestVersion, 
+                                editRights));
                     }
                 }
                 else
