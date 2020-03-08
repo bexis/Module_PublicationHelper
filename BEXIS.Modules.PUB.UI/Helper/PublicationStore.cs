@@ -17,6 +17,14 @@ namespace BExIS.Modules.PUB.UI.Helpers
 
         public List<EntityStoreItem> GetEntities()
         {
+            return GetEntities(0, 0);
+        }
+
+        public List<EntityStoreItem> GetEntities(int skip, int take)
+        {
+            bool withPaging = (take >= 0);
+
+
             using (var uow = this.GetUnitOfWork())
             {
                 DatasetManager dm = new DatasetManager();
@@ -33,8 +41,21 @@ namespace BExIS.Modules.PUB.UI.Helpers
 
                     foreach (var msid in metadataSturctureIdsForDatasets)
                     {
+                        var datasetIds = new List<long>();
                         // get all datasets based on metadata data structure id
-                        var datasetIds = dm.DatasetRepo.Query(d => d.MetadataStructure.Id.Equals(msid)).Select(d => d.Id).ToList();
+                        if (withPaging)
+                        {
+                            datasetIds = dm.DatasetRepo
+                                                    .Query(d => d.MetadataStructure.Id.Equals(msid))
+                                                    .Skip(skip)
+                                                    .Take(take)
+                                                    .Select(d => d.Id).ToList();
+                        }
+                        else
+                        {
+                            datasetIds = dm.DatasetRepo.Query(d => d.MetadataStructure.Id.Equals(msid)).Select(d => d.Id).ToList();
+                        }
+
 
                         if (!datasetIds.Any()) continue;
 
@@ -90,6 +111,45 @@ namespace BExIS.Modules.PUB.UI.Helpers
         }
 
 
+        public int CountEntities()
+        {
+            using (var uow = this.GetUnitOfWork())
+            {
+                DatasetManager dm = new DatasetManager();
+                MetadataStructureManager metadataStructureManager = new MetadataStructureManager();
+                XmlDatasetHelper xmlDatasetHelper = new XmlDatasetHelper();
+                var entities = new List<EntityStoreItem>();
+                int count = 0;
+
+                try
+                {
+                    List<long> metadataStructureIds = metadataStructureManager.Repo.Query().Select(m => m.Id).ToList();
+
+                    List<long> metadataSturctureIdsForDatasets = new List<long>();
+                    metadataStructureIds.ForEach(m => xmlDatasetHelper.HasEntity(m, _entityName));
+
+                    foreach (var msid in metadataStructureIds)
+                    {
+                        var datasetIds = new List<long>();
+                        // get all datasets based on metadata data structure id
+
+                        datasetIds = dm.DatasetRepo.Query(d => d.MetadataStructure.Id.Equals(msid)).Select(d => d.Id).ToList();
+                        count += datasetIds.Count;
+
+                    }
+
+                    return count;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    dm.Dispose();
+                }
+            }
+        }
         public string GetTitleById(long id)
         {
             using (var uow = this.GetUnitOfWork())
