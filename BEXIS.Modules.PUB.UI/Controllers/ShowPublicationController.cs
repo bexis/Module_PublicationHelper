@@ -154,12 +154,12 @@ namespace BExIS.Modules.PUB.UI.Controllers
             List<DatasetVersion> dsvs = datasetManager.GetDatasetVersions(id).OrderByDescending(d => d.Timestamp).ToList();
 
             dsvs.ForEach(d => tmp.Add(
-                new SelectListItem()
-                {
-                    Text = (dsvs.IndexOf(d) + 1) + " " + getVersionInfo(d),
-                    Value = "" + (dsvs.IndexOf(d) + 1)
-                }
-                ));
+               new SelectListItem()
+               {
+                   Text = (dsvs.Count - dsvs.IndexOf(d)) + " " + getVersionInfo(d),
+                   Value = "" + (dsvs.Count - dsvs.IndexOf(d))
+               }
+               ));
 
             return new SelectList(tmp, "Value", "Text");
         }
