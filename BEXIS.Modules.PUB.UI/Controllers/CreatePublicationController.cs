@@ -81,16 +81,22 @@ namespace BExIS.Modules.PUB.UI.Controllers
         
         }
 
-        public ActionResult Submit(bool valid)
+        public JsonResult Submit(bool valid)
         {
-            // create and submit Dataset
-            var createDatasetController = new CreateDatasetController();
-            // how to hold the seesion: https://stackoverflow.com/questions/31388357/session-is-null-when-calling-method-from-one-controller-to-another-mvc
-            createDatasetController.ControllerContext = new ControllerContext(this.Request.RequestContext, createDatasetController);
-            long datasetId = createDatasetController.SubmitDataset(valid);
+            try
+            {
+                // create and submit Dataset
+                var createDatasetController = new CreateDatasetController();
+                // how to hold the seesion: https://stackoverflow.com/questions/31388357/session-is-null-when-calling-method-from-one-controller-to-another-mvc
+                createDatasetController.ControllerContext = new ControllerContext(this.Request.RequestContext, createDatasetController);
+                long datasetId = createDatasetController.SubmitDataset(valid);
 
-            return RedirectToAction("Index", "UploadPublication", new { area = "Pub", entityId = datasetId});
-           
+                return Json(new { result = "redirect", url = Url.Action("Index", "UploadPublication", new { area = "Pub", entityId = datasetId }) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { result = "error", message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         private void setAdditionalFunctions()
