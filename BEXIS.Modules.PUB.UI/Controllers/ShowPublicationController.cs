@@ -93,8 +93,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
                     metadata = dsv.Metadata;
 
                     // check if the user has download rights
-                    downloadAccess = entityPermissionManager.HasEffectiveRight(HttpContext.User.Identity.Name,
-                        "Publication", typeof(Dataset), id, RightType.Read);
+                    downloadAccess = entityPermissionManager.HasEffectiveRight(HttpContext.User.Identity.Name, typeof(Dataset), id, RightType.Read);
 
                     //// check if a reuqest of this dataset exist
                     //if (!downloadAccess)
@@ -125,8 +124,8 @@ namespace BExIS.Modules.PUB.UI.Controllers
                     MetadataStructureId = metadataStructureId,
                     DataStructureId = dataStructureId,
                     ResearchPlanId = researchPlanId,
-                    ViewAccess = entityPermissionManager.HasEffectiveRight(HttpContext.User.Identity.Name, "Publication", typeof(Dataset), id, RightType.Read),
-                    GrantAccess = entityPermissionManager.HasEffectiveRight(HttpContext.User.Identity.Name, "Publication", typeof(Dataset), id, RightType.Grant),
+                    ViewAccess = entityPermissionManager.HasEffectiveRight(HttpContext.User.Identity.Name, typeof(Dataset), id, RightType.Read),
+                    GrantAccess = entityPermissionManager.HasEffectiveRight(HttpContext.User.Identity.Name, typeof(Dataset), id, RightType.Grant),
                     DataStructureType = dataStructureType,
                     DownloadAccess = downloadAccess,
                     RequestExist = requestExist,
@@ -264,7 +263,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
         #region primary data
 
         //[MeasurePerformance
-        [BExISEntityAuthorize("Publication", typeof(Dataset), "datasetID", RightType.Read)]
+        [BExISEntityAuthorize(typeof(Dataset), "datasetID", RightType.Read)]
         public ActionResult ShowPrimaryData(long datasetID, int versionId)
         {
             Session["Filter"] = null;
@@ -289,11 +288,9 @@ namespace BExIS.Modules.PUB.UI.Controllers
                     DataStructure ds = dsm.AllTypesDataStructureRepo.Get(dsv.Dataset.DataStructure.Id);
 
                     // TODO: refactor Download Right not existing, so i set it to read
-                    bool downloadAccess = entityPermissionManager.HasEffectiveRight(HttpContext.User.Identity.Name,
-                        "Publication", typeof(Dataset), datasetID, RightType.Read);
+                    bool downloadAccess = entityPermissionManager.HasEffectiveRight(HttpContext.User.Identity.Name, typeof(Dataset), datasetID, RightType.Read);
 
-                    bool editRights = entityPermissionManager.HasEffectiveRight(HttpContext.User.Identity.Name,
-                        "Publication", typeof(Dataset), datasetID, RightType.Write);
+                    bool editRights = entityPermissionManager.HasEffectiveRight(HttpContext.User.Identity.Name, typeof(Dataset), datasetID, RightType.Write);
 
                     //TITLE
                     string title = xmlDatasetHelper.GetInformationFromVersion(dsv.Id, NameAttributeValues.title);
@@ -338,7 +335,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
 
         #region entity references
 
-        [BExISEntityAuthorize("Publication", typeof(Dataset), "id", RightType.Read)]
+        [BExISEntityAuthorize( typeof(Dataset), "id", RightType.Read)]
         public ActionResult ShowReferences(long id, int version)
         {
             var sourceTypeId = 0;
