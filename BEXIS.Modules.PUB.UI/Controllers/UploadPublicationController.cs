@@ -153,7 +153,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
                 ContentDescriptor originalDescriptor = new ContentDescriptor()
                 {
                     OrderNo = 1,
-                    Name = "unstructuredData",
+                    Name = originalFileName,
                     MimeType = mimeType,
                     URI = dynamicStorePath,
                     DatasetVersion = datasetVersion,
