@@ -1,5 +1,0 @@
-C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Orm.NH\bin\Debug\BEXIS.PUB.Orm.NH.dll
-C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Orm.NH\bin\Debug\BEXIS.PUB.Orm.NH.pdb
-C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Orm.NH\obj\Debug\BEXIS.PUB.Orm.NH.csproj.CoreCompileInputs.cache
-C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Orm.NH\obj\Debug\BEXIS.PUB.Orm.NH.dll
-C:\_work\_bexis2Fork\Core\Console\BExIS.Web.Shell\Areas\PUB\BEXIS.PUB.Orm.NH\obj\Debug\BEXIS.PUB.Orm.NH.pdb
