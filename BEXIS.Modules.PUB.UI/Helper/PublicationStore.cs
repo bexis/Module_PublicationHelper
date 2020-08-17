@@ -230,5 +230,10 @@ namespace BExIS.Modules.PUB.UI.Helpers
                 dm.Dispose();
             }
         }
+
+        public bool Exist(long id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
