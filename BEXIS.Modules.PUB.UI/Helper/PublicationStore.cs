@@ -1,4 +1,5 @@
-﻿using BExIS.Dlm.Services.Data;
+﻿using BExIS.Dlm.Entities.Data;
+using BExIS.Dlm.Services.Data;
 using BExIS.Dlm.Services.MetadataStructure;
 using BExIS.Security.Services.Objects;
 using BExIS.Xml.Helpers;
@@ -233,7 +234,22 @@ namespace BExIS.Modules.PUB.UI.Helpers
 
         public bool Exist(long id)
         {
-            throw new NotImplementedException();
+            DatasetManager dm = new DatasetManager();
+            Dataset dataset = null;
+
+            try
+            {
+                dataset = dm.GetDataset(id);
+                return dataset != null ? true : false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                dm.Dispose();
+            }
         }
     }
 }
