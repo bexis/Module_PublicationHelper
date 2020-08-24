@@ -335,31 +335,32 @@ namespace BExIS.Modules.PUB.UI.Controllers
 
         #region entity references
 
-        [BExISEntityAuthorize( typeof(Dataset), "id", RightType.Read)]
+        [BExISEntityAuthorize(typeof(Dataset), "id", RightType.Read)]
         public ActionResult ShowReferences(long id, int version)
         {
             var sourceTypeId = 0;
-
-            //get the researchobject (cuurently called dataset) to get the id of a metadata structure
-            Dataset researcobject = this.GetUnitOfWork().GetReadOnlyRepository<Dataset>().Get(id);
-            long metadataStrutcureId = researcobject.MetadataStructure.Id;
-
-            string entityName = xmlDatasetHelper.GetEntityNameFromMetadatStructure(metadataStrutcureId, new Dlm.Services.MetadataStructure.MetadataStructureManager());
-            string entityType = xmlDatasetHelper.GetEntityTypeFromMetadatStructure(metadataStrutcureId, new Dlm.Services.MetadataStructure.MetadataStructureManager());
-
             //ToDo in the entity table there must be the information
-            EntityManager entityManager = new EntityManager();
+            using (EntityManager entityManager = new EntityManager())
+            using (var metdataStrcture = new Dlm.Services.MetadataStructure.MetadataStructureManager())
+            {
+                //get the researchobject (cuurently called dataset) to get the id of a metadata structure
+                Dataset researcobject = this.GetUnitOfWork().GetReadOnlyRepository<Dataset>().Get(id);
+                long metadataStrutcureId = researcobject.MetadataStructure.Id;
 
-            var entity = entityManager.Entities.Where(e => e.Name.Equals(entityName)).FirstOrDefault();
+                string entityName = xmlDatasetHelper.GetEntityNameFromMetadatStructure(metadataStrutcureId, metdataStrcture);
+                string entityType = xmlDatasetHelper.GetEntityTypeFromMetadatStructure(metadataStrutcureId, metdataStrcture);
 
-            var view = this.Render("DCM", "EntityReference", "Show", new RouteValueDictionary()
+                var entity = entityManager.Entities.Where(e => e.Name.Equals(entityName)).FirstOrDefault();
+
+                var view = this.Render("DCM", "EntityReference", "Show", new RouteValueDictionary()
             {
                 { "sourceId", id },
                 { "sourceTypeId", entity.Id },
                 { "sourceVersion", version }
             });
 
-            return Content(view.ToHtmlString(), "text/html");
+                return Content(view.ToHtmlString(), "text/html");
+            }
         }
 
         #endregion entity references

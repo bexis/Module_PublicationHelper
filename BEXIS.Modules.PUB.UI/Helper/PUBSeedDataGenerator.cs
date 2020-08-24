@@ -45,24 +45,25 @@ namespace BExIS.Modules.PUB.UI.Helpers
 
             #region SECURITY
 
-            FeatureManager featureManager = new FeatureManager();
-            OperationManager operationManager = new OperationManager();
+            using (FeatureManager featureManager = new FeatureManager())
+            using (OperationManager operationManager = new OperationManager())
+            {
 
-            Feature PublicationFeature = featureManager.FeatureRepository.Get().FirstOrDefault(f => f.Name.Equals("Publications"));
-            if (PublicationFeature == null) PublicationFeature = featureManager.Create("Publications", "Publications");
+                Feature PublicationFeature = featureManager.FeatureRepository.Get().FirstOrDefault(f => f.Name.Equals("Publications"));
+                if (PublicationFeature == null) PublicationFeature = featureManager.Create("Publications", "Publications");
 
-            Feature PublicationCreationFeature = featureManager.FeatureRepository.Get().FirstOrDefault(f => f.Name.Equals("Publication Creation"));
-            if (PublicationCreationFeature == null) PublicationCreationFeature = featureManager.Create("Publication Creation", "Publication Creation", PublicationFeature);
+                Feature PublicationCreationFeature = featureManager.FeatureRepository.Get().FirstOrDefault(f => f.Name.Equals("Publication Creation"));
+                if (PublicationCreationFeature == null) PublicationCreationFeature = featureManager.Create("Publication Creation", "Publication Creation", PublicationFeature);
 
-            Feature PublicationShowFeature = featureManager.FeatureRepository.Get().FirstOrDefault(f => f.Name.Equals("Publication Show"));
-            if (PublicationShowFeature == null) PublicationShowFeature = featureManager.Create("Publication Show", "Publication Show", PublicationFeature);
+                Feature PublicationShowFeature = featureManager.FeatureRepository.Get().FirstOrDefault(f => f.Name.Equals("Publication Show"));
+                if (PublicationShowFeature == null) PublicationShowFeature = featureManager.Create("Publication Show", "Publication Show", PublicationFeature);
 
-            operationManager.Create("PUB", "CreatePublication", "*", PublicationCreationFeature);
-            operationManager.Create("PUB", "UploadPublication", "*", PublicationCreationFeature);
-            operationManager.Create("PUB", "ShowPublication", "*", PublicationShowFeature);
+                operationManager.Create("PUB", "CreatePublication", "*", PublicationCreationFeature);
+                operationManager.Create("PUB", "UploadPublication", "*", PublicationCreationFeature);
+                operationManager.Create("PUB", "ShowPublication", "*", PublicationShowFeature);
 
 
-
+            }
             #endregion
         }
 

@@ -107,6 +107,7 @@ namespace BExIS.Modules.PUB.UI.Helpers
                 finally
                 {
                     dm.Dispose();
+                    metadataStructureManager.Dispose();
                 }
             }
         }
@@ -148,6 +149,7 @@ namespace BExIS.Modules.PUB.UI.Helpers
                 finally
                 {
                     dm.Dispose();
+                    metadataStructureManager.Dispose();
                 }
             }
         }
