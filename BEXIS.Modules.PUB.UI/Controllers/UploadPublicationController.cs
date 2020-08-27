@@ -138,8 +138,8 @@ namespace BExIS.Modules.PUB.UI.Controllers
                 TaskManager TaskManager = (TaskManager)Session["TaskManager"];
                 String tempPath = TaskManager.Bus[TaskManager.FILEPATH].ToString();
                 string originalFileName = TaskManager.Bus[TaskManager.FILENAME].ToString();
-                string storePath = excelWriter.GetFullStorePathOriginalFile(datasetVersion.Dataset.Id, datasetVersion.VersionNo, originalFileName);
-                string dynamicStorePath = excelWriter.GetDynamicStorePathOriginalFile(datasetVersion.Dataset.Id, datasetVersion.VersionNo, originalFileName);
+                string storePath = Path.Combine(AppConfiguration.DataPath, "Datasets", datasetVersion.Dataset.Id.ToString(), originalFileName);
+                string dynamicStorePath = Path.Combine("Datasets", datasetVersion.Dataset.Id.ToString(), originalFileName);
                 string extention = TaskManager.Bus[TaskManager.EXTENTION].ToString();
 
                 Debug.WriteLine("extention : " + extention);
