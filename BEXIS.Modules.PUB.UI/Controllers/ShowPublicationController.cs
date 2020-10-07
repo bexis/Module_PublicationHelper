@@ -3,12 +3,14 @@ using BExIS.Dlm.Entities.Data;
 using BExIS.Dlm.Entities.DataStructure;
 using BExIS.Dlm.Services.Data;
 using BExIS.Dlm.Services.DataStructure;
+using BExIS.Dlm.Services.MetadataStructure;
 using BExIS.IO;
 using BExIS.Modules.Ddm.UI.Helpers;
 using BExIS.Modules.Ddm.UI.Models;
 using BExIS.Security.Entities.Authorization;
 using BExIS.Security.Services.Authorization;
 using BExIS.Security.Services.Objects;
+using BExIS.UI.Helpers;
 using BExIS.Xml.Helpers;
 using System;
 using System.Collections.Generic;
@@ -31,8 +33,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
     {
         private XmlDatasetHelper xmlDatasetHelper = new XmlDatasetHelper();
 
-        // GET: ShowPublication
-        //[BExISEntityAuthorize("Publication", typeof(Dataset), "id", RightType.Grant)]
+        //copy of BExIS.Modules.Ddm.UI.Controllers.DataController.ShowData (?)
         public ActionResult Index(long id, int version = 0)
         {
             DatasetManager dm = new DatasetManager();
@@ -143,6 +144,52 @@ namespace BExIS.Modules.PUB.UI.Controllers
             {
                 dm.Dispose();
                 entityPermissionManager.Dispose();
+            }
+        }
+
+        //copy of BExIS.Modules.Ddm.UI.Controllers.DataController.ShowData (unchanged)
+        public ActionResult Show(long id, long version = 0)
+        {
+            //get the researchobject (cuurently called dataset) to get the id of a metadata structure
+            Dataset researcobject = this.GetUnitOfWork().GetReadOnlyRepository<Dataset>().Get(id);
+            long metadataStrutcureId = researcobject.MetadataStructure.Id;
+
+            using (MetadataStructureManager metadataStructureManager = new MetadataStructureManager())
+            {
+                string entityName = xmlDatasetHelper.GetEntityNameFromMetadatStructure(metadataStrutcureId, metadataStructureManager);
+                string entityType = xmlDatasetHelper.GetEntityTypeFromMetadatStructure(metadataStrutcureId, metadataStructureManager);
+
+                //ToDo in the entity table there must be the information
+                using (EntityManager entityManager = new EntityManager())
+                {
+                    var entity = entityManager.Entities.Where(e => e.Name.Equals(entityName)).FirstOrDefault();
+
+                    string moduleId = "";
+                    Tuple<string, string, string> action = null;
+                    string defaultAction = "ShowData";
+
+                    if (entity != null && entity.Extra != null)
+                    {
+                        var node = entity.Extra.SelectSingleNode("extra/modules/module");
+
+                        if (node != null) moduleId = node.Attributes["value"].Value;
+
+                        string modus = "show";
+
+                        action = EntityViewerHelper.GetEntityViewAction(entityName, moduleId, modus);
+                    }
+                    if (action == null) RedirectToAction(defaultAction, new { id, version });
+
+                    try
+                    {
+                        if (version == 0) return RedirectToAction(action.Item3, action.Item2, new { area = action.Item1, id });
+                        else return RedirectToAction(action.Item3, action.Item2, new { area = action.Item1, id, version });
+                    }
+                    catch
+                    {
+                        return RedirectToAction(defaultAction, new { id, version });
+                    }
+                }
             }
         }
 

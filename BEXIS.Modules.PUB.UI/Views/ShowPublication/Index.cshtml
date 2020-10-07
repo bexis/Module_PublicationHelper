@@ -272,7 +272,7 @@
     });
 
    function selectVersion(datasetId, versionNumber) {
-        var redirectURL = '@Url.Action("Show","Data")';
+       var redirectURL = '@Url.Action("Show", "ShowPublication")';
         window.location.href = redirectURL + "/" + datasetId + "?version=" + versionNumber;
    }
 

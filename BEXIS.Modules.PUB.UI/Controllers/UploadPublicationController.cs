@@ -35,7 +35,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
             return RedirectToAction("Index", "ShowPublication", new { area = "PUB", id = entityId });
         }
 
-        //partly copy of Dcm.UI.Helpers DataASyncUploadHelper FinishUpload()
+        //copy of Dcm.UI.Helpers.DataASyncUploadHelper.FinishUpload (adapted)
         public ActionResult SaveFile(long entityId)
         {
             Dataset ds = null;
