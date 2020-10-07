@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Vaiona.Entities.Common;
 using Vaiona.Persistence.Api;
 using Vaiona.Utils.Cfg;
 
@@ -31,16 +32,14 @@ namespace BExIS.Modules.PUB.UI.Controllers
 
         public ActionResult SkipUpload(long entityId)
         {
-            return RedirectToAction("ShowData", "Data", new { area = "DDM", id = entityId });
+            return RedirectToAction("Index", "ShowPublication", new { area = "PUB", id = entityId });
         }
 
+        //partly copy of Dcm.UI.Helpers DataASyncUploadHelper FinishUpload()
         public ActionResult SaveFile(long entityId)
         {
             Dataset ds = null;
             DatasetVersion workingCopy = new DatasetVersion();
-
-            string status = DatasetStateInfo.NotValid.ToString();
-
             using (var dm = new DatasetManager())
             {
                 ds = dm.GetDataset(entityId);
@@ -56,23 +55,22 @@ namespace BExIS.Modules.PUB.UI.Controllers
                         {
                             workingCopy = unitOfWork.GetReadOnlyRepository<DatasetVersion>().Get(workingCopy.Id);
 
-                            //set StateInfo of the previus version
-                            if (workingCopy.StateInfo == null)
-                            {
-                                workingCopy.StateInfo = new Vaiona.Entities.Common.EntityStateInfo()
-                                {
-                                    State = status
-                                };
-                            }
-                            else
-                            {
-                                workingCopy.StateInfo.State = status;
-                            }
-
                             unitOfWork.GetReadOnlyRepository<DatasetVersion>().Load(workingCopy.ContentDescriptors);
 
                             SaveFileInContentDiscriptor(workingCopy);
                         }
+
+                        workingCopy.StateInfo = new EntityStateInfo();
+                        workingCopy.StateInfo.State = DatasetStateInfo.Valid.ToString();
+
+                        //set modification
+                        workingCopy.ModificationInfo = new EntityAuditInfo()
+                        {
+                            Performer = GetUsernameOrDefault(),
+                            Comment = "File",
+                            ActionType = AuditActionType.Create
+                        };
+
                         dm.EditDatasetVersion(workingCopy, null, null, null);
 
                         // ToDo: Get Comment from ui and users
@@ -85,7 +83,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
                 }
             }
 
-            return RedirectToAction("ShowData", "Data", new { area = "DDM", id = entityId });
+            return RedirectToAction("Index", "ShowPublication", new { area = "PUB", id = entityId });
 
         }
 
@@ -153,7 +151,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
                 ContentDescriptor originalDescriptor = new ContentDescriptor()
                 {
                     OrderNo = 1,
-                    Name = originalFileName,
+                    Name = "unstructureddata",
                     MimeType = mimeType,
                     URI = dynamicStorePath,
                     DatasetVersion = datasetVersion,
