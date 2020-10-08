@@ -88,7 +88,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
                     //MetadataStructureManager msm = new MetadataStructureManager();
                     //dsv.Dataset.MetadataStructure = msm.Repo.Get(dsv.Dataset.MetadataStructure.Id);
 
-                    title = xmlDatasetHelper.GetInformationFromVersion(dsv.Id, NameAttributeValues.title); // this function only needs metadata and extra fields, there is no need to pass the version to it.
+                    title = dsv.Title;
                     dataStructureId = dsv.Dataset.DataStructure.Id;
                     researchPlanId = dsv.Dataset.ResearchPlan.Id;
                     metadata = dsv.Metadata;
@@ -342,7 +342,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
                     bool editRights = entityPermissionManager.HasEffectiveRight(HttpContext.User.Identity.Name, typeof(Dataset), datasetID, RightType.Write);
 
                     //TITLE
-                    string title = xmlDatasetHelper.GetInformationFromVersion(dsv.Id, NameAttributeValues.title);
+                    string title = dsv.Title;
 
                     if (ds.Self.GetType() == typeof(UnStructuredDataStructure))
                     {
