@@ -82,7 +82,6 @@ namespace BExIS.Modules.PUB.UI.Controllers
             }
         
         }
-
         public JsonResult Submit(bool valid)
         {
             // create and submit Dataset
@@ -109,6 +108,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
             }
         }
 
+        //copy of BExIS.Modules.Dcm.UI.Controllers.CreateDatasetController. setAdditionalFunctions (adapted)
         private void setAdditionalFunctions()
         {
             CreateTaskmanager taskManager = (CreateTaskmanager)Session["CreateDatasetTaskmanager"];

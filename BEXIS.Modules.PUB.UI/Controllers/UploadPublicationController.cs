@@ -87,6 +87,8 @@ namespace BExIS.Modules.PUB.UI.Controllers
 
         }
 
+        //copy of Dcm.UI.Helpers.DataASyncUploadHelper.SelectFileProcess (adapted)
+
         /// <summary>
         /// Selected File store in the BUS
         /// </summary>
@@ -122,9 +124,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
             return Content("");
         }
 
-
-      
-
+        ////copy of Dcm.UI.Helpers.DataASyncUploadHelper.SaveFileInContentDiscriptor (adapted)
         private string SaveFileInContentDiscriptor(DatasetVersion datasetVersion)
         {
             try
@@ -167,6 +167,8 @@ namespace BExIS.Modules.PUB.UI.Controllers
                 return "";
             }
         }
+
+        //copy of Dcm.UI.Helpers.DataASyncUploadHelper.GetUsernameOrDefault (unchanged)
 
         public string GetUsernameOrDefault()
         {

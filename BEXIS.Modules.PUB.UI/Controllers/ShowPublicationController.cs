@@ -33,7 +33,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
     {
         private XmlDatasetHelper xmlDatasetHelper = new XmlDatasetHelper();
 
-        //copy of BExIS.Modules.Ddm.UI.Controllers.DataController.ShowData (?)
+        //copy of BExIS.Modules.Ddm.UI.Controllers.DataController.ShowData (adapted)
         public ActionResult Index(long id, int version = 0)
         {
             DatasetManager dm = new DatasetManager();
@@ -193,6 +193,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
             }
         }
 
+        //copy of BExIS.Modules.Ddm.UI.Controllers.DataController.getVersionsSelectList
         private SelectList getVersionsSelectList(long id, DatasetManager datasetManager)
         {
             List<SelectListItem> tmp = new List<SelectListItem>();
@@ -210,6 +211,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
             return new SelectList(tmp, "Value", "Text");
         }
 
+        //copy of BExIS.Modules.Ddm.UI.Controllers.DataController.getVersionInfo (unchanged)
         private string getVersionInfo(DatasetVersion d)
         {
             StringBuilder sb = new StringBuilder();
@@ -300,7 +302,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
 
             return sb.ToString();
         }
-
+        // copy of BExIS.Modules.Ddm.UI.Controllers.DataController.Truncate (unchanged)
         public string Truncate(string value, int maxLength)
         {
             if (string.IsNullOrEmpty(value)) return value;
@@ -309,7 +311,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
 
         #region primary data
 
-        //[MeasurePerformance
+        //copy of BExIS.Modules.Ddm.UI.Controllers.DataController.ShowPrimaryData (adapted)
         [BExISEntityAuthorize(typeof(Dataset), "datasetID", RightType.Read)]
         public ActionResult ShowPrimaryData(long datasetID, int versionId)
         {
@@ -382,7 +384,8 @@ namespace BExIS.Modules.PUB.UI.Controllers
 
         #region entity references
 
-        [BExISEntityAuthorize(typeof(Dataset), "id", RightType.Read)]
+        //copy of BExIS.Modules.Ddm.UI.Controllers.DataController.ShowReferences (unchanged)
+        //[BExISEntityAuthorize(typeof(Dataset), "id", RightType.Read)]
         public ActionResult ShowReferences(long id, int version)
         {
             var sourceTypeId = 0;
