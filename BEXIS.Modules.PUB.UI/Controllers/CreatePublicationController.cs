@@ -10,6 +10,8 @@ using BExIS.Dlm.Services.Data;
 using BExIS.Dlm.Services.DataStructure;
 using BExIS.Dlm.Services.MetadataStructure;
 using BExIS.Modules.Dcm.UI.Controllers;
+using BExIS.Security.Entities.Authorization;
+using BExIS.Security.Entities.Subjects;
 using BExIS.Security.Services.Authorization;
 using BExIS.Security.Services.Objects;
 using BExIS.Security.Services.Utilities;
@@ -91,6 +93,12 @@ namespace BExIS.Modules.PUB.UI.Controllers
                     // how to hold the seesion: https://stackoverflow.com/questions/31388357/session-is-null-when-calling-method-from-one-controller-to-another-mvc
                     createDatasetController.ControllerContext = new ControllerContext(this.Request.RequestContext, createDatasetController);
                     long datasetId = createDatasetController.SubmitDataset(valid);
+
+                    using (EntityPermissionManager entityPermissionManager = new EntityPermissionManager())
+                    {
+                        entityPermissionManager.Create<Group>("administrator", "Publication", typeof(Dataset), datasetId, Enum.GetValues(typeof(RightType)).Cast<RightType>().ToList());
+                        entityPermissionManager.Create<Group>("publicationIntern", "Publication", typeof(Dataset), datasetId, new List<RightType>() { RightType.Read});
+                    }
 
                     return Json(new { result = "redirect", url = Url.Action("Index", "UploadPublication", new { area = "Pub", entityId = datasetId }) }, JsonRequestBehavior.AllowGet);
                 }
