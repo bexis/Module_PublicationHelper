@@ -147,7 +147,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
             }
         }
 
-        //copy of BExIS.Modules.Ddm.UI.Controllers.DataController.ShowData (unchanged)
+        //copy of BExIS.Modules.Ddm.UI.Controllers.DataController.Show (unchanged)
         public ActionResult Show(long id, long version = 0)
         {
             //get the researchobject (cuurently called dataset) to get the id of a metadata structure
