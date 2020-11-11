@@ -44,7 +44,9 @@ namespace BExIS.Modules.PUB.UI.Controllers
             using (var researchPlanManager = new ResearchPlanManager())
             {
                 //get metadatastruture
-                var md = metadataStructureManager.Repo.Get(a => a.Name == "BE-PublicationSchema").FirstOrDefault();
+                var metadataStructureName = Helper.Settings.get("MetadataStructureName");
+
+                var md = metadataStructureManager.Repo.Get(a => a.Name == metadataStructureName.ToString()).FirstOrDefault();
 
                 //get entitytype
                 var entityType = entityManager.FindByName("Publication");

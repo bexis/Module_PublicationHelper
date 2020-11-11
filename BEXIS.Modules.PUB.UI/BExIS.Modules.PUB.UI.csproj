@@ -161,6 +161,7 @@
     <Compile Include="Controllers\UploadPublicationController.cs" />
     <Compile Include="Helper\PublicationStore.cs" />
     <Compile Include="Helper\PUBSeedDataGenerator.cs" />
+    <Compile Include="Helper\Settings.cs" />
     <Compile Include="Models\SelectFileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PUBModule.cs" />
