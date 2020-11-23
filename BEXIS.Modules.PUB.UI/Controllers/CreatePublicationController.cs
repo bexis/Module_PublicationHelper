@@ -93,7 +93,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
                 {
                     // how to hold the seesion: https://stackoverflow.com/questions/31388357/session-is-null-when-calling-method-from-one-controller-to-another-mvc
                     createDatasetController.ControllerContext = new ControllerContext(this.Request.RequestContext, createDatasetController);
-                    long datasetId = createDatasetController.SubmitDataset(valid);
+                    long datasetId = createDatasetController.SubmitDataset(valid, "Publication");
 
                     using (EntityPermissionManager entityPermissionManager = new EntityPermissionManager())
                     {
