@@ -1,0 +1,56 @@
+﻿@model BExIS.Modules.PUB.UI.Models.SetupModel
+
+@{
+    ViewBag.Title = "ChooseMetadataStructure";
+}
+
+@using (Html.BeginForm("LoadMetaDataForm", "CreatePublication", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td style="width: 300px;">
+                @Html.LabelFor(m => m.SelectedMetadataStructureId) <span class="bx bx-required" title="Required"></span>
+            </td>
+            <td style="width: 60px;"></td>
+            <td>
+                @(Html.Telerik().DropDownList()
+                      .Name("SelectedMetadataStructureId")
+                      .Placeholder("Select")
+                      .HtmlAttributes(new { title = "Select a Metadata Structure", @class = "bx-dropdown" })
+                      .SelectedIndex(0)
+                      .BindTo(new SelectList(Model.MetadataStructureList, "Id", "Title", Model.SelectedMetadataStructureId))
+                      .ClientEvents(e =>
+                      {
+                          //e.OnChange("onChangeMetadataStructure");
+                      })
+                        )
+            </td>
+            <td>
+                @Html.ValidationMessageFor(m => m.SelectedMetadataStructureId)
+            </td>
+        </tr>
+    </table>
+
+    <div class="bx-footer right">
+        <button type="submit" value="Save" name="saveDataset" class="bx-button action" style="border:0px;">Next</button>
+    </div>
+}
+
+    <script type="text/javascript">
+
+      function onChangeMetadataStructure() {
+        var id;
+
+        if ($(this).val() == "")
+            id = -1;
+        else
+            id = $(this).val();
+
+        $.post('@Url.Action("StoreSelectedOption", "CreateDataset")',
+            { id: id, type: "ms" },
+            function(response) {
+
+            })
+    }
+
+    </script>

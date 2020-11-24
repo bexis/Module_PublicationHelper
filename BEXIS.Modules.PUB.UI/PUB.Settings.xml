@@ -5,7 +5,8 @@
   <entry key="key3" value="21" type="Int16"/>
   
   <!--Setting to define publication schema-->
-  <entry key="MetadataStructureName" value="BE-PublicationSchema" type="string"/>
+  <entry key="DefaultMetadataStructure" value="BE-PublicationSchema" type="string"/>
+  <entry key="MultibleMetadataStructures" value="false" type="string"/>
 
-  
+
 </settings>
