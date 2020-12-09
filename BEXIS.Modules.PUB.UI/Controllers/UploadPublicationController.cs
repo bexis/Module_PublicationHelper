@@ -133,14 +133,24 @@ namespace BExIS.Modules.PUB.UI.Controllers
                 // the function is available in the abstract class datawriter
                 ExcelWriter excelWriter = new ExcelWriter();
                 // Move Original File to its permanent location
+
+                string path = Path.Combine(AppConfiguration.DataPath, "Datasets", datasetVersion.Dataset.Id.ToString(), "DatasetVersions");
+
+                // if folder not exist
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
                 TaskManager TaskManager = (TaskManager)Session["TaskManager"];
                 String tempPath = TaskManager.Bus[TaskManager.FILEPATH].ToString();
                 string originalFileName = TaskManager.Bus[TaskManager.FILENAME].ToString();
-                string storePath = Path.Combine(AppConfiguration.DataPath, "Datasets", datasetVersion.Dataset.Id.ToString(), originalFileName);
-                string dynamicStorePath = Path.Combine("Datasets", datasetVersion.Dataset.Id.ToString(), originalFileName);
+                string storePath = Path.Combine(path, originalFileName);
+                string dynamicStorePath = Path.Combine("Datasets", datasetVersion.Dataset.Id.ToString(), "DatasetVersions", originalFileName);
                 string extention = TaskManager.Bus[TaskManager.EXTENTION].ToString();
 
                 Debug.WriteLine("extention : " + extention);
+                
 
                 //Why using the excel writer, isn't any function available in System.IO.File/ Directory, etc. Javad
                 FileHelper.MoveFile(tempPath, storePath);
