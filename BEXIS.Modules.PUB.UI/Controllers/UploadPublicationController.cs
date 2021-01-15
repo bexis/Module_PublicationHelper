@@ -23,8 +23,14 @@ namespace BExIS.Modules.PUB.UI.Controllers
         // GET: UploadPublication
         public ActionResult Index(long entityId)
         {
+            var fileExtentions = Helper.Settings.get("FileExtentions").ToString().Split(',');
+
             SelectFileViewModel model = new SelectFileViewModel();
-            model.SupportedFileExtentions.Add(".pdf");
+            foreach (string extention in fileExtentions)
+            {
+                model.SupportedFileExtentions.Add(extention);
+            }
+
             model.EntityId = entityId;
 
             return View("UploadFile", model);

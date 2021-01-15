@@ -7,6 +7,6 @@
   <!--Setting to define publication schema-->
   <entry key="DefaultMetadataStructure" value="BE-PublicationSchema" type="string"/>
   <entry key="MultibleMetadataStructures" value="false" type="string"/>
-
+  <entry key="FileExtentions" value=".pdf" type="string"/>
 
 </settings>
