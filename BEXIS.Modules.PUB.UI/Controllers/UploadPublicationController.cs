@@ -3,6 +3,7 @@ using BExIS.Dlm.Entities.Data;
 using BExIS.Dlm.Services.Data;
 using BExIS.IO;
 using BExIS.IO.Transform.Output;
+using BExIS.Modules.Ddm.UI.Models;
 using BExIS.Modules.PUB.UI.Models;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
     {
 
         // GET: UploadPublication
-        public ActionResult Index(long entityId)
+        public ActionResult Index(long entityId, DataStructureType type = DataStructureType.Unstructured)
         {
             var fileExtentions = Helper.Settings.get("FileExtentions").ToString().Split(',');
 
@@ -79,8 +80,17 @@ namespace BExIS.Modules.PUB.UI.Controllers
 
                         dm.EditDatasetVersion(workingCopy, null, null, null);
 
+
+                        //filename
+                        string filename = "";
+                        TaskManager TaskManager = (TaskManager)Session["TaskManager"];
+                        if (TaskManager.Bus.ContainsKey(TaskManager.FILENAME))
+                        {
+                            filename = TaskManager.Bus[TaskManager.FILENAME]?.ToString();
+                        }
+
                         // ToDo: Get Comment from ui and users
-                        dm.CheckInDataset(ds.Id, "upload unstructured data", GetUsernameOrDefault(), ViewCreationBehavior.None);
+                        dm.CheckInDataset(ds.Id, filename, GetUsernameOrDefault(), ViewCreationBehavior.None);
                     }
                     catch (Exception ex)
                     {
@@ -167,7 +177,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
                 ContentDescriptor originalDescriptor = new ContentDescriptor()
                 {
                     OrderNo = 1,
-                    Name = "unstructureddata",
+                    Name = "unstructuredData",
                     MimeType = mimeType,
                     URI = dynamicStorePath,
                     DatasetVersion = datasetVersion,
