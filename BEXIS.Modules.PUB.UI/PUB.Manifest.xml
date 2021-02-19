@@ -34,6 +34,7 @@
 
   <EntityActions>
     <EntityAction id="showPublication" entity="publication" controller="ShowPublication" action="Index" area="PUB" modus="show" />
+    <EntityAction id="uploadPublication" entity="publication" controller="UploadPublication" action="Index" area="PUB" modus="upload" />
   </EntityActions>
   
 </Manifest>
