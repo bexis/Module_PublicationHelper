@@ -87,6 +87,10 @@ namespace BExIS.Modules.PUB.UI.Controllers
                         taskManager.AddToBus(CreateTaskmanager.SAVE_WITH_ERRORS, false);
                         taskManager.AddToBus(CreateTaskmanager.NO_IMPORT_ACTION, true);
 
+                        taskManager.AddToBus(CreateTaskmanager.INFO_ON_TOP_TITLE, "Create Publication");
+                        taskManager.AddToBus(CreateTaskmanager.INFO_ON_TOP_DESCRIPTION, "<p>Here you can enter metadata for your new dataset. The form varies according to the metadata structure you selected in the first step. Mandatory fields are indicated with an red asterisk. You can add, remove, or re - order elements(e.g.multiple Creators) using the buttons at the right.</p>");
+
+
                         // get existing researchPlan
                         string researchPlanName = "Research plan";
                         ResearchPlan researchPlan = researchPlanManager.Repo.Get(r => researchPlanName.Equals(r.Title)).FirstOrDefault();
@@ -136,6 +140,9 @@ namespace BExIS.Modules.PUB.UI.Controllers
 
                         taskManager.AddToBus(CreateTaskmanager.SAVE_WITH_ERRORS, false);
                         taskManager.AddToBus(CreateTaskmanager.NO_IMPORT_ACTION, true);
+
+                        taskManager.AddToBus(CreateTaskmanager.INFO_ON_TOP_TITLE, "Edit Publication");
+                        taskManager.AddToBus(CreateTaskmanager.INFO_ON_TOP_DESCRIPTION, "<p>Here you can enter metadata for your new dataset. The form varies according to the metadata structure you selected in the first step. Mandatory fields are indicated with an red asterisk. You can add, remove, or re - order elements(e.g.multiple Creators) using the buttons at the right.</p>");
 
                         // get existing researchPlan
                         string researchPlanName = "Research plan";
