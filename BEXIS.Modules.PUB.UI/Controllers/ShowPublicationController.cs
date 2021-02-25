@@ -147,6 +147,36 @@ namespace BExIS.Modules.PUB.UI.Controllers
             }
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <remarks></remarks>
+        /// <seealso cref=""/>
+        /// <param name="datasetID"></param>
+        /// <returns>model</returns>
+        public ActionResult ShowMetaData(long entityId, string title, long metadatastructureId, long datastructureId, long researchplanId, string sessionKeyForMetadata, bool latest, string isValid = "yes")
+        {
+            var result = this.Run("DCM", "Form", "SetAdditionalFunctions", new RouteValueDictionary() { { "actionName", "" }, { "controllerName", "" }, { "area", "" }, { "type", "copy" } });
+            result = this.Run("DCM", "Form", "SetAdditionalFunctions", new RouteValueDictionary() { { "actionName", "Reset" }, { "controllerName", "Form" }, { "area", "Form" }, { "type", "reset" } });
+            result = this.Run("DCM", "Form", "SetAdditionalFunctions", new RouteValueDictionary() { { "actionName", "Cancel" }, { "controllerName", "Form" }, { "area", "DCM" }, { "type", "cancel" } });
+            result = this.Run("DCM", "Form", "SetAdditionalFunctions", new RouteValueDictionary() { { "actionName", "Submit" }, { "controllerName", "CreateDataset" }, { "area", "DCM" }, { "type", "submit" } });
+
+            var view = this.Render("DCM", "Form", "LoadMetadataFromExternal", new RouteValueDictionary()
+            {
+                { "entityId", entityId },
+                { "title", title },
+                { "metadatastructureId", metadatastructureId },
+                { "datastructureId", datastructureId },
+                { "researchplanId", researchplanId },
+                { "sessionKeyForMetadata", sessionKeyForMetadata },
+                { "resetTaskManager", false },
+                { "latest", latest },
+                { "isValid", isValid }
+            });
+
+            return Content(view.ToHtmlString(), "text/html");
+        }
+
         //copy of BExIS.Modules.Ddm.UI.Controllers.DataController.Show (unchanged)
         public ActionResult Show(long id, long version = 0)
         {
