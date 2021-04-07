@@ -185,6 +185,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
                     using (EntityPermissionManager entityPermissionManager = new EntityPermissionManager())
                     {
                         entityPermissionManager.Create<Group>("administrator", "Publication", typeof(Dataset), datasetId, Enum.GetValues(typeof(RightType)).Cast<RightType>().ToList());
+                        entityPermissionManager.Create<Group>("publicationAdmin", "Publication", typeof(Dataset), datasetId, new List<RightType>() { RightType.Read, RightType.Write});
                         entityPermissionManager.Create<Group>("publicationIntern", "Publication", typeof(Dataset), datasetId, new List<RightType>() { RightType.Read});
                     }
 
