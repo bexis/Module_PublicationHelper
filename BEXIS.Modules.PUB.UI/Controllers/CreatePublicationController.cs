@@ -150,7 +150,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
                         taskManager.AddToBus(CreateTaskmanager.RESEARCHPLAN_ID, researchPlan.Id);
 
                         //create unstructured datastructure
-                        DataStructure dataStructure = CreateDataStructure("Publication-File") as UnStructuredDataStructure;
+                        DataStructure dataStructure = CreateDataStructure("Publication") as UnStructuredDataStructure;
                         taskManager.AddToBus(CreateTaskmanager.DATASTRUCTURE_ID, dataStructure.Id);
 
                         HttpContext.Session["CreateDatasetTaskmanager"] = taskManager;
@@ -186,7 +186,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
                     {
                         entityPermissionManager.Create<Group>("administrator", "Publication", typeof(Dataset), datasetId, Enum.GetValues(typeof(RightType)).Cast<RightType>().ToList());
                         entityPermissionManager.Create<Group>("publicationAdmin", "Publication", typeof(Dataset), datasetId, new List<RightType>() { RightType.Read, RightType.Write});
-                        entityPermissionManager.Create<Group>("publicationIntern", "Publication", typeof(Dataset), datasetId, new List<RightType>() { RightType.Read});
+                        entityPermissionManager.Create<Group>("1_publicationIntern", "Publication", typeof(Dataset), datasetId, new List<RightType>() { RightType.Read});
                     }
 
                     return Json(new { result = "redirect", url = Url.Action("Index", "UploadPublication", new { area = "Pub", entityId = datasetId }) }, JsonRequestBehavior.AllowGet);
