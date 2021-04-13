@@ -60,41 +60,21 @@ namespace BExIS.Modules.PUB.UI.Helpers
 
                         if (!datasetIds.Any()) continue;
 
-                        List<Tuple<long, long, string>> x = new List<Tuple<long, long, string>>();
-
                         // create tuples based on dataset id list, and get latest version of each dataset
 
-                        foreach (var datasetId in datasetIds)
+                        List<DatasetVersion> datasetVersions = dm.GetDatasetLatestVersions(datasetIds, false);
+                        foreach (var dsv in datasetVersions)
                         {
-                            if (dm.IsDatasetCheckedIn(datasetId))
+
+                            var e = new EntityStoreItem()
                             {
-                                x.Add(new Tuple<long, long, string>(
-                                    datasetId,
-                                    dm.GetDatasetLatestVersionId(datasetId),
-                                    string.Empty));
-                            }
-                        }
+                                Id = dsv.Dataset.Id,
+                                Title = dsv.Title,
+                                Version = dm.GetDatasetVersionCount(dsv.Dataset.Id)
+                            };
 
-                        //select versionids for the next query
-                        var verionIds = x.Select(t => t.Item2).ToList();
+                            entities.Add(e);
 
-                        var r = xmlDatasetHelper.GetInformationFromVersions(verionIds, msid, NameAttributeValues.title);
-
-                        if (r != null)
-                        {
-                            foreach (KeyValuePair<long, string> kvp in r)
-                            {
-                                long id = x.Where(t => t.Item2.Equals(kvp.Key)).FirstOrDefault().Item1;
-
-                                var e = new EntityStoreItem()
-                                {
-                                    Id = id,
-                                    Title = kvp.Value,
-                                    Version = dm.GetDatasetVersionCount(id)
-                                };
-
-                                entities.Add(e);
-                            }
                         }
                     }
 
