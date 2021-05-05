@@ -172,14 +172,13 @@
 			//console.log(viewAccess);
 			//console.log(grantAccess);
 
-			$("li#datastructure").removeClass("t-state-disabled");
-			//console.log($(tabStrip).find("li #datastructure"));
+            $("li#datastructure").removeClass("t-state-disabled");
+            $("li#showreferences").removeClass("t-state-disabled");
 
 			if (viewAccess === "True") {
 				$("li#primarydata").removeClass("t-state-disabled");
 				$("li#prepare").removeClass("t-state-disabled");
 				$("li#attachements").removeClass("t-state-disabled");
-				$("li#showreferences").removeClass("t-state-disabled");
 			}
 
 			if (grantAccess === "True") {
