@@ -47,6 +47,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
         {
             Dataset ds = null;
             DatasetVersion workingCopy = new DatasetVersion();
+            string storePath = "";
             using (var dm = new DatasetManager())
             {
                 ds = dm.GetDataset(entityId);
@@ -64,7 +65,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
 
                             unitOfWork.GetReadOnlyRepository<DatasetVersion>().Load(workingCopy.ContentDescriptors);
 
-                            SaveFileInContentDiscriptor(workingCopy);
+                            storePath = SaveFileInContentDiscriptor(workingCopy);
                         }
 
                         workingCopy.StateInfo = new EntityStateInfo();
@@ -80,14 +81,13 @@ namespace BExIS.Modules.PUB.UI.Controllers
 
                         dm.EditDatasetVersion(workingCopy, null, null, null);
 
+                        string filename = Path.GetFileName(storePath) ;
 
-                        //filename
-                        string filename = "";
-                        TaskManager TaskManager = (TaskManager)Session["TaskManager"];
-                        if (TaskManager.Bus.ContainsKey(TaskManager.FILENAME))
-                        {
-                            filename = TaskManager.Bus[TaskManager.FILENAME]?.ToString();
-                        }
+                        //TaskManager TaskManager = (TaskManager)Session["TaskManager"];
+                        //if (TaskManager.Bus.ContainsKey(TaskManager.FILENAME))
+                        //{
+                        //    filename = TaskManager.Bus[TaskManager.FILENAME]?.ToString();
+                        //}
 
                         // ToDo: Get Comment from ui and users
                         dm.CheckInDataset(ds.Id, filename, GetUsernameOrDefault(), ViewCreationBehavior.None);
