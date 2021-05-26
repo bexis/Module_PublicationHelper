@@ -8,5 +8,13 @@
   <entry key="DefaultMetadataStructure" value="BE-PublicationSchema" type="string"/>
   <entry key="MultibleMetadataStructures" value="false" type="string"/>
   <entry key="FileExtentions" value=".pdf" type="string"/>
+  
+    <!--Setting to define groups witch get default rights on new created publication-->
+    <!--adminGroup get full rights on publication-->
+    <entry key="adminGroup" value="administrator" type="string"/>
+    <!--pubAdminGroup get read and write on publication-->
+    <entry key="pubAdminGroup" value="publicationAdmin" type="string"/>
+    <!--pubInternGroup get read on publication-->
+    <entry key="pubInternGroup" value="1_publicationIntern" type="string"/>
 
 </settings>

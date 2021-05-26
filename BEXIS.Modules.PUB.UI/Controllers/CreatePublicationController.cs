@@ -182,11 +182,20 @@ namespace BExIS.Modules.PUB.UI.Controllers
                     createDatasetController.ControllerContext = new ControllerContext(this.Request.RequestContext, createDatasetController);
                     long datasetId = createDatasetController.SubmitDataset(valid, "Publication");
 
+                    //get groups from setting file
+                    var adminGroup = Helper.Settings.get("adminGroup").ToString();
+                    var pubAdminGroup = Helper.Settings.get("pubAdminGroup").ToString();
+                    var pubInternGroup = Helper.Settings.get("pubInternGroup").ToString();
+
+
                     using (EntityPermissionManager entityPermissionManager = new EntityPermissionManager())
                     {
-                        entityPermissionManager.Create<Group>("administrator", "Publication", typeof(Dataset), datasetId, Enum.GetValues(typeof(RightType)).Cast<RightType>().ToList());
-                        entityPermissionManager.Create<Group>("publicationAdmin", "Publication", typeof(Dataset), datasetId, new List<RightType>() { RightType.Read, RightType.Write});
-                        entityPermissionManager.Create<Group>("1_publicationIntern", "Publication", typeof(Dataset), datasetId, new List<RightType>() { RightType.Read});
+                        if(!String.IsNullOrEmpty(adminGroup))
+                            entityPermissionManager.Create<Group>("administrator", "Publication", typeof(Dataset), datasetId, Enum.GetValues(typeof(RightType)).Cast<RightType>().ToList());
+                        if (!String.IsNullOrEmpty(pubAdminGroup))
+                            entityPermissionManager.Create<Group>("publicationAdmin", "Publication", typeof(Dataset), datasetId, new List<RightType>() { RightType.Read, RightType.Write});
+                        if (!String.IsNullOrEmpty(pubInternGroup))
+                            entityPermissionManager.Create<Group>("1_publicationIntern", "Publication", typeof(Dataset), datasetId, new List<RightType>() { RightType.Read});
                     }
 
                     return Json(new { result = "redirect", url = Url.Action("Index", "UploadPublication", new { area = "Pub", entityId = datasetId }) }, JsonRequestBehavior.AllowGet);
