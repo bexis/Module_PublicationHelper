@@ -193,7 +193,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
                         if(!String.IsNullOrEmpty(adminGroup))
                             entityPermissionManager.Create<Group>("administrator", "Publication", typeof(Dataset), datasetId, Enum.GetValues(typeof(RightType)).Cast<RightType>().ToList());
                         if (!String.IsNullOrEmpty(pubAdminGroup))
-                            entityPermissionManager.Create<Group>("publicationAdmin", "Publication", typeof(Dataset), datasetId, new List<RightType>() { RightType.Read, RightType.Write});
+                            entityPermissionManager.Create<Group>("publicationAdmin", "Publication", typeof(Dataset), datasetId, new List<RightType>() { RightType.Read, RightType.Write, RightType.Delete});
                         if (!String.IsNullOrEmpty(pubInternGroup))
                             entityPermissionManager.Create<Group>("1_publicationIntern", "Publication", typeof(Dataset), datasetId, new List<RightType>() { RightType.Read});
                     }
