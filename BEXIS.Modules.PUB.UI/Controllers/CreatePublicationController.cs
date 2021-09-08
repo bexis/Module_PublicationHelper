@@ -84,7 +84,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
                         CreateTaskmanager taskManager = new CreateTaskmanager();
                         taskManager.AddToBus(CreateTaskmanager.METADATASTRUCTURE_ID, md.Id);
 
-                        taskManager.AddToBus(CreateTaskmanager.SAVE_WITH_ERRORS, false);
+                        taskManager.AddToBus(CreateTaskmanager.SAVE_WITH_ERRORS, true);
                         taskManager.AddToBus(CreateTaskmanager.NO_IMPORT_ACTION, true);
 
                         taskManager.AddToBus(CreateTaskmanager.INFO_ON_TOP_TITLE, "Create Publication");
@@ -138,7 +138,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
                         CreateTaskmanager taskManager = new CreateTaskmanager();
                         taskManager.AddToBus(CreateTaskmanager.METADATASTRUCTURE_ID, md.Id);
 
-                        taskManager.AddToBus(CreateTaskmanager.SAVE_WITH_ERRORS, false);
+                        taskManager.AddToBus(CreateTaskmanager.SAVE_WITH_ERRORS, true);
                         taskManager.AddToBus(CreateTaskmanager.NO_IMPORT_ACTION, true);
 
                         taskManager.AddToBus(CreateTaskmanager.INFO_ON_TOP_TITLE, "Edit Publication");
