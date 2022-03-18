@@ -97,7 +97,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
                         taskManager.AddToBus(CreateTaskmanager.RESEARCHPLAN_ID, researchPlan.Id);
 
                         //create unstructured datastructure
-                        DataStructure dataStructure = CreateDataStructure("Publication-File") as UnStructuredDataStructure;
+                        DataStructure dataStructure = CreateDataStructure("Publication") as UnStructuredDataStructure;
                         taskManager.AddToBus(CreateTaskmanager.DATASTRUCTURE_ID, dataStructure.Id);
 
                         HttpContext.Session["CreateDatasetTaskmanager"] = taskManager;
