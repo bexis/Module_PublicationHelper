@@ -5,8 +5,12 @@ using BExIS.IO;
 using BExIS.IO.Transform.Output;
 using BExIS.Modules.Ddm.UI.Models;
 using BExIS.Modules.PUB.UI.Models;
+using BExIS.Security.Entities.Subjects;
+using BExIS.Security.Services.Subjects;
+using BExIS.Security.Services.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -81,7 +85,7 @@ namespace BExIS.Modules.PUB.UI.Controllers
 
                         dm.EditDatasetVersion(workingCopy, null, null, null);
 
-                        string filename = Path.GetFileName(storePath) ;
+                        string filename = Path.GetFileName(storePath);
 
                         //TaskManager TaskManager = (TaskManager)Session["TaskManager"];
                         //if (TaskManager.Bus.ContainsKey(TaskManager.FILENAME))
@@ -91,6 +95,21 @@ namespace BExIS.Modules.PUB.UI.Controllers
 
                         // ToDo: Get Comment from ui and users
                         dm.CheckInDataset(ds.Id, filename, GetUsernameOrDefault(), ViewCreationBehavior.None);
+
+                        using (var userManager = new UserManager())
+                        {
+                            string username = GetUsernameOrDefault();
+                            if(username != "DEFAULT")
+                            {
+                                User user = userManager.FindByNameAsync(username).Result;
+                                var es = new EmailService();
+                                es.Send(MessageHelper.GeFileUpdatHeader(ds.Id),
+                                    MessageHelper.GetFileUploaddMessage(ds.Id, user.Name, filename),
+                                    new List<string> { user.Email }, null, new List<string> { ConfigurationManager.AppSettings["SystemEmail"] });
+                            }
+
+                            
+                        }
                     }
                     catch (Exception ex)
                     {
