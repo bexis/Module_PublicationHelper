@@ -244,10 +244,6 @@
       <Project>{c4ca0a99-0af3-4372-a9b7-b9073599bd8b}</Project>
       <Name>BExIS.Dlm.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Components\IO\BExIS.IO.Transform.Output\BExIS.IO.Transform.Output.csproj">
-      <Project>{455EC826-9A92-40FF-BD3B-388C288955CE}</Project>
-      <Name>BExIS.IO.Transform.Output</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\Components\IO\BExIS.IO.Transform.Validation\BExIS.IO.Transform.Validation.csproj">
       <Project>{c8a05313-b960-406e-92ec-c1e5b3f47fcd}</Project>
       <Name>BExIS.IO.Transform.Validation</Name>
