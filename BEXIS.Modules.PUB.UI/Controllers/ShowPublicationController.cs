@@ -147,6 +147,19 @@ namespace BExIS.Modules.PUB.UI.Controllers
             }
         }
 
+        public ActionResult DownloadZip(long id, long version = -1, string format = "")
+        {
+
+            if (this.IsAccessible("DIM", "Export", "GenerateZip"))
+            {
+                var actionresult = this.Run("DIM", "Export", "GenerateZip", new RouteValueDictionary() { { "id", id }, { "versionid", version }, { "format", format } });
+
+                return actionresult;
+            }
+
+            return Json(false);
+        }
+
         /// <summary>
         ///
         /// </summary>
