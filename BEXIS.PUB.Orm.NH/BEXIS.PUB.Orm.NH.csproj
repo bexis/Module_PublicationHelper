@@ -72,7 +72,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir "$(SolutionDir)Console\Workspace\Modules\DIM"
+    <PostBuildEvent>mkdir "$(SolutionDir)Console\Workspace\Modules\PUB"
 rmdir /S /Q  "$(SolutionDir)Console\Workspace\Modules\PUB\Db\Mappings"
 C:\Windows\System32\xcopy "$(ProjectDir)Mappings" "$(SolutionDir)Console\Workspace\Modules\PUB\Db\Mappings" /E /C /Y /I</PostBuildEvent>
   </PropertyGroup>
