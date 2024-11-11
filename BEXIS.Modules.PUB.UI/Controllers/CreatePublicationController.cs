@@ -196,6 +196,8 @@ namespace BExIS.Modules.PUB.UI.Controllers
                             entityPermissionManager.Create<Group>("publicationAdmin", "Publication", typeof(Dataset), datasetId, new List<RightType>() { RightType.Read, RightType.Write, RightType.Delete});
                         if (!String.IsNullOrEmpty(pubInternGroup))
                             entityPermissionManager.Create<Group>("1_publicationIntern", "Publication", typeof(Dataset), datasetId, new List<RightType>() { RightType.Read});
+                   
+                         entityPermissionManager.Create<Group>(HttpContext.User.Identity.Name, "Publication", typeof(Dataset), datasetId, new List<RightType>() { RightType.Read, RightType.Write });
                     }
 
                     return Json(new { result = "redirect", url = Url.Action("Index", "UploadPublication", new { area = "Pub", entityId = datasetId }) }, JsonRequestBehavior.AllowGet);
